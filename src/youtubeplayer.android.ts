@@ -42,11 +42,15 @@ export class YoutubePlayer extends YoutubePlayerBase {
         const manager: android.support.v4.app.FragmentManager = (<any>this)._getFragmentManager();
         const fragment = manager.findFragmentByTag(FRAGMENT_TAG);
         if (!fragment) {
-            this._fragment = com.google.android.youtube.player.YouTubePlayerSupportFragment.newInstance();
-            manager
-                .beginTransaction()
-                .replace(this._layoutId, this._fragment, FRAGMENT_TAG)
-                .commit();
+            try {
+                this._fragment = com.google.android.youtube.player.YouTubePlayerSupportFragment.newInstance();
+                manager
+                    .beginTransaction()
+                    .replace(this._layoutId, this._fragment, FRAGMENT_TAG)
+                    .commit();
+            } catch(e) {
+                console.log(e)
+            }
         } else {
             this._fragment = fragment;
         }
